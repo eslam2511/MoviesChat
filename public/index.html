@@ -1,0 +1,1068 @@
+<margin: 15px1n marginight: 20ightOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <title>مشاهدة جماعية</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <style>
+        /* Reset و Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-attachment: fixed;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(10px, 4vw, 20px);
+            line-height: 1.6;
+        }
+
+        /* Typography - Responsive Font Sizes */
+        h1 {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            margin-bottom: clamp(20px, 4vw, 30px);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            font-weight: 700;
+        }
+
+        /* Main Setup Container */
+        #setup {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px); /* Safari support */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: clamp(20px, 5vw, 40px);
+            max-width: 450px;
+            width: 100%;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            margin: 0 auto;
+        }
+
+        .welcome-text {
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            margin-bottom: clamp(20px, 4vw, 30px);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Responsive Button Layout */
+        .main-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: clamp(20px, 4vw, 30px);
+        }
+
+        .main-buttons button {
+            width: 100%;
+            padding: clamp(12px, 3vw, 15px) clamp(15px, 4vw, 20px);
+            border-radius: 12px;
+            border: none;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            min-height: 50px;
+            touch-action: manipulation; /* Better touch response */
+        }
+
+        .main-buttons button:hover,
+        .main-buttons button:focus {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            outline: none;
+        }
+
+        .create-btn {
+            background: linear-gradient(135deg, #4CAF50, #45a049) !important;
+            border: none !important;
+        }
+
+        .create-btn:hover,
+        .create-btn:focus {
+            background: linear-gradient(135deg, #45a049, #3d8b40) !important;
+        }
+
+        .join-btn {
+            background: rgba(255, 255, 255, 0.15) !important;
+        }
+
+        /* Form Inputs */
+        input {
+            width: 100%;
+            padding: clamp(12px, 3vw, 15px) clamp(15px, 4vw, 20px);
+            margin: 10px 0;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-sizing: border-box;
+            min-height: 50px;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+        }
+
+        /* Form Sections */
+        .form-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: clamp(15px, 4vw, 25px);
+            margin-top: 20px;
+        }
+
+        .form-section button {
+            width: 100%;
+            padding: clamp(12px, 3vw, 15px);
+            border-radius: 12px;
+            border: none;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            min-height: 50px;
+            touch-action: manipulation;
+        }
+
+        .form-section button:hover,
+        .form-section button:focus {
+            background: linear-gradient(135deg, #45a049, #3d8b40);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            outline: none;
+        }
+
+        /* App Icon */
+        .app-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: clamp(60px, 15vw, 80px);
+            height: clamp(60px, 15vw, 80px);
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            border-radius: 20px;
+            margin: 0 auto 20px;
+            color: white;
+            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.3);
+            font-size: clamp(1.5rem, 4vw, 2rem);
+        }
+
+        /* Video Container */
+        .video-container {
+            max-width: min(900px, 95vw);
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .video-container:fullscreen {
+            width: 100vw;
+            height: 100vh;
+            border-radius: 0;
+            max-width: none;
+        }
+
+        .video-player {
+            width: 100%;
+            height: auto;
+            max-height: 70vh;
+            background: #000;
+            object-fit: contain;
+        }
+
+        /* Controls - Mobile Friendly */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: clamp(8px, 2vw, 12px);
+            color: #fff;
+            gap: clamp(4px, 1vw, 8px);
+            font-size: clamp(10px, 2vw, 12px);
+        }
+
+        .controls button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            font-size: clamp(14px, 3vw, 18px);
+            color: #4CAF50;
+            cursor: pointer;
+            padding: clamp(6px, 1.5vw, 8px) clamp(8px, 2vw, 12px);
+            min-width: clamp(35px, 8vw, 40px);
+            min-height: clamp(35px, 8vw, 40px);
+            transition: all 0.3s ease;
+            touch-action: manipulation;
+        }
+
+        .controls button:hover,
+        .controls button:focus {
+            background: rgba(76, 175, 80, 0.2);
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        .controls input[type="range"] {
+            flex: 1;
+            margin: 0 clamp(5px, 2vw, 10px);
+            accent-color: #4CAF50;
+            background: transparent;
+            height: clamp(4px, 1vw, 6px);
+            border-radius: 3px;
+            min-width: 100px;
+        }
+
+        .controls span {
+            font-family: 'Segoe UI', monospace;
+            font-size: clamp(10px, 2vw, 12px);
+            color: #ccc;
+            white-space: nowrap;
+            padding: 0 clamp(4px, 1vw, 8px);
+        }
+
+        /* Room Info Panel */
+        .room-info {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: clamp(15px, 4vw, 20px);
+            margin: clamp(10px, 3vw, 20px);
+            border-radius: 15px;
+            text-align: right;
+            direction: rtl;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .room-info h3 {
+            margin: 0 0 15px 0;
+            color: #4CAF50;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+        }
+
+        .room-info p {
+            margin: 8px 0;
+            font-size: clamp(14px, 3vw, 16px);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Voice Chat Controls */
+        .voice-controls {
+            margin: clamp(10px, 3vw, 20px);
+            padding: clamp(15px, 4vw, 20px);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .voice-controls h4 {
+            margin: 0 0 20px 0;
+            color: #ff4757;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+        }
+
+        #voice-chat-btn {
+            padding: clamp(12px, 3vw, 15px) clamp(20px, 4vw, 25px);
+            background: linear-gradient(135deg, #ff4757, #ff3742);
+            color: white;
+            border-radius: 12px;
+            font-size: clamp(14px, 3vw, 16px);
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
+            min-height: 50px;
+            touch-action: manipulation;
+        }
+
+        #voice-chat-btn:hover,
+        #voice-chat-btn:focus {
+            background: linear-gradient(135deg, #ff3742, #ff2f3a);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 71, 87, 0.4);
+            outline: none;
+        }
+
+        #voice-chat-btn.active {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        #voice-chat-btn.active:hover,
+        #voice-chat-btn.active:focus {
+            background: linear-gradient(135deg, #45a049, #3d8b40);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .voice-status {
+            margin-top: 15px;
+            font-size: clamp(12px, 2.5vw, 14px);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        /* Users List */
+        .users-list {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: clamp(10px, 2vw, 15px);
+            margin: 15px 0;
+            border-radius: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .user-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: clamp(12px, 2.5vw, 14px);
+        }
+
+        .user-item:last-child {
+            border-bottom: none;
+        }
+
+        .user-voice-indicator {
+            width: clamp(10px, 2.5vw, 12px);
+            height: clamp(10px, 2.5vw, 12px);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .user-voice-indicator.active {
+            background: #4CAF50;
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .admin-badge {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: clamp(8px, 2vw, 10px);
+            margin-left: 8px;
+            font-weight: bold;
+        }
+
+        /* Notifications - Mobile Friendly */
+        .notification {
+            position: fixed;
+            top: clamp(15px, 3vw, 30px);
+            right: clamp(15px, 3vw, 30px);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            color: #333;
+            padding: clamp(10px, 3vw, 15px) clamp(15px, 4vw, 20px);
+            border-radius: 12px;
+            z-index: 1000;
+            animation: slideIn 0.4s ease-out;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            max-width: min(300px, 90vw);
+            font-size: clamp(12px, 2.5vw, 14px);
+        }
+
+        @keyframes slideIn {
+            from { 
+                transform: translateX(100%); 
+                opacity: 0;
+            }
+            to { 
+                transform: translateX(0); 
+                opacity: 1;
+            }
+        }
+
+        #player-container {
+            background: transparent;
+            padding: clamp(10px, 3vw, 20px);
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        /* Media Queries for Better Control */
+        
+        /* Mobile Devices */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .main-buttons {
+                gap: 10px;
+            }
+            
+            .controls {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .controls input[type="range"] {
+                order: -1;
+                width: 100%;
+                margin: 5px 0;
+            }
+            
+            .notification {
+                top: 10px;
+                right: 10px;
+                left: 10px;
+                max-width: none;
+            }
+        }
+
+        /* Tablet Landscape */
+        @media (min-width: 481px) and (max-width: 768px) {
+            .main-buttons {
+                flex-direction: row;
+            }
+            
+            .main-buttons button {
+                flex: 1;
+            }
+        }
+
+        /* Desktop */
+        @media (min-width: 769px) {
+            .main-buttons {
+                flex-direction: row;
+            }
+            
+            .main-buttons button {
+                flex: 1;
+            }
+            
+            body {
+                padding: 20px;
+            }
+        }
+
+        /* Large Screens */
+        @media (min-width: 1200px) {
+            .video-container {
+                max-width: 1000px;
+            }
+        }
+
+        /* High DPI Displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .app-icon {
+                box-shadow: 0 10px 25px rgba(76, 175, 80, 0.4);
+            }
+        }
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            
+            .notification,
+            .voice-controls {
+                display: none !important;
+            }
+        }
+
+        /* Focus Management for Accessibility */
+        button:focus-visible,
+        input:focus-visible {
+            outline: 2px solid #4CAF50;
+            outline-offset: 2px;
+        }
+
+        /* Touch Target Improvements */
+        @media (pointer: coarse) {
+            button,
+            input {
+                min-height: 44px;
+            }
+        }
+              </style>
+</head>
+<body>
+  <div id="setup">
+    <div class="app-icon">
+      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 10.5C15 8.01472 12.9853 6 10.5 6C8.01472 6 6 8.01472 6 10.5C6 12.9853 8.01472 15 10.5 15C12.9853 15 15 12.9853 15 10.5Z" stroke="currentColor" stroke-width="2"/>
+        <path d="M12 21C16.9533 21 21 16.9533 21 12C21 7.04672 16.9533 3 12 3C7.04672 3 3 7.04672 3 12C3 16.9533 7.04672 21 12 21Z" stroke="currentColor" stroke-width="2"/>
+      </svg>
+    </div>
+
+    <h2 style="margin: 20px 0; font-size: 1.8rem;">مشاهدة جماعية</h2>
+    <p class="welcome-text">مرحباً بك!</p>
+
+    <div class="main-buttons">
+      <button class="create-btn" onclick="showCreate()">+ إنشاء غرفة جديدة</button>
+      <button class="join-btn" onclick="showJoin()">الانضمام لغرفة موجودة</button>
+    </div>
+
+    <div id="create" class="form-section" style="display:none">
+      <h3 style="margin-bottom: 20px; color: #4CAF50;">إنشاء غرفة جديدة</h3>
+      <input id="username-create" placeholder="اسمك" />
+      <input id="create-room" placeholder="اسم الغرفة" />
+      <input id="video-url" placeholder="رابط الفيديو" />
+      <button onclick="createRoom()">إنشاء والدخول</button>
+    </div>
+
+    <div id="join" class="form-section" style="display:none">
+      <h3 style="margin-bottom: 20px; color: #4CAF50;">الانضمام لغرفة</h3>
+      <input id="username-join" placeholder="اسمك" />
+      <input id="join-room" placeholder="اسم الغرفة" />
+      <button onclick="joinRoom()">انضمام</button>
+    </div>
+  </div>
+
+  
+  <div id="player-container" style="display:none">
+    <!-- Room Information -->
+    <div class="room-info">
+      <h3 id="room-name">اسم الغرفة</h3>
+      <p>عدد الأعضاء: <span id="user-count">0</span></p>
+      <div class="users-list" id="users-list">
+        <!-- Users will be populated here -->
+      </div>
+    </div>
+
+    <!-- Video Player -->
+    <div class="video-container" id="player">
+      <video id="video" class="video-player" controls>
+        المتصفح لا يدعم الفيديو.
+      </video>
+      <div class="controls">
+        <button onclick="seek(-10)">⏪</button>
+        <button onclick="togglePlay()" id="play-btn">▶️</button>
+        <button onclick="seek(10)">⏩</button>
+        <input type="range" id="progress" value="0" />
+        <span id="time">00:00 / 00:00</span>
+        <button onclick="toggleFullScreen()">⛶</button>
+      </div>
+    </div>
+
+    <!-- Voice Chat Controls -->
+    <div class="voice-controls">
+      <h4>🎙️ المحادثة الصوتية</h4>
+      <button id="voice-chat-btn" onclick="toggleVoiceChat()">🔇 تشغيل المايك</button>
+      <div class="voice-status" id="voice-status">المايك متوقف</div>
+    </div>
+  </div>
+
+
+
+  
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const video = document.getElementById('video');
+    const playBtn = document.getElementById('play-btn');
+    const progress = document.getElementById('progress');
+    const time = document.getElementById('time');
+    const voiceBtn = document.getElementById('voice-chat-btn');
+    const voiceStatus = document.getElementById('voice-status');
+
+    let room = '';
+    let username = '';
+    let isAdmin = false;
+    let preventEmit = false;
+    let syncLock = false;
+    let localStream = null;
+    let peerConnections = {};
+    let isVoiceChatActive = false;
+
+    function showCreate() {
+      document.getElementById('create').style.display = 'block';
+      document.getElementById('join').style.display = 'none';
+    }
+
+    function showJoin() {
+      document.getElementById('join').style.display = 'block';
+      document.getElementById('create').style.display = 'none';
+    }
+
+    function createRoom() {
+      room = document.getElementById('create-room').value.trim();
+      username = document.getElementById('username-create').value.trim();
+      const videoUrl = document.getElementById('video-url').value.trim();
+
+      if (!room || !videoUrl || !username) {
+        alert('من فضلك أدخل جميع البيانات المطلوبة');
+        return;
+      }
+
+      socket.emit('join-room', { room, videoUrl, username });
+      showPlayer();
+    }
+
+    function joinRoom() {
+      room = document.getElementById('join-room').value.trim();
+      username = document.getElementById('username-join').value.trim();
+
+      if (!room || !username) {
+        alert('من فضلك أدخل اسم الغرفة وأسمك');
+        return;
+      }
+
+      socket.emit('join-room', { room, username });
+      showPlayer();
+    }
+
+    function showPlayer() {
+      document.getElementById('setup').style.display = 'none';
+      document.getElementById('player-container').style.display = 'block';
+    }
+
+    function togglePlay() {
+      if (!isAdmin) {
+        showNotification('فقط الأدمن يمكنه التحكم في الفيديو');
+        return;
+      }
+
+      if (video.paused) {
+        socket.emit('play', video.currentTime);
+        video.play();
+      } else {
+        socket.emit('pause', video.currentTime);
+        video.pause();
+      }
+    }
+
+    function seek(seconds) {
+      if (!isAdmin) {
+        showNotification('فقط الأدمن يمكنه التحكم في الفيديو');
+        return;
+      }
+
+      let newTime = video.currentTime + seconds;
+      if (newTime < 0) newTime = 0;
+      if (newTime > video.duration) newTime = video.duration;
+      socket.emit('seek', newTime);
+      video.currentTime = newTime;
+    }
+
+    function toggleFullScreen() {
+      const videoContainer = document.querySelector('.video-container');
+      if (!document.fullscreenElement) {
+        videoContainer.requestFullscreen().catch(err => {
+          alert(`خطأ في ملء الشاشة: ${err.message}`);
+        });
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    function showNotification(message) {
+      const notification = document.createElement('div');
+      notification.className = 'notification';
+      notification.textContent = message;
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+    }
+
+    function updateUsersList(users) {
+      const usersList = document.getElementById('users-list');
+      usersList.innerHTML = '';
+
+      users.forEach(user => {
+        const userItem = document.createElement('div');
+        userItem.className = 'user-item';
+        userItem.innerHTML = `
+          <span>
+            ${user.username}
+            ${user.id === socket.id ? ' (أنت)' : ''}
+            ${isAdmin && user.id === socket.id ? '<span class="admin-badge">أدمن</span>' : ''}
+          </span>
+          <div class="user-voice-indicator" id="voice-${user.id}"></div>
+        `;
+        usersList.appendChild(userItem);
+      });
+    }
+
+    // Video Event Listeners
+    video.addEventListener('play', () => {
+      if (!preventEmit && isAdmin) socket.emit('play', video.currentTime);
+      playBtn.textContent = '⏸️';
+    });
+
+    video.addEventListener('pause', () => {
+      if (!preventEmit && isAdmin) socket.emit('pause', video.currentTime);
+      playBtn.textContent = '▶️';
+    });
+
+    video.addEventListener('timeupdate', () => {
+      const percent = (video.currentTime / video.duration) * 100;
+      progress.value = percent;
+      time.textContent = `${formatTime(video.currentTime)} / ${formatTime(video.duration)}`;
+    });
+
+    progress.addEventListener('input', () => {
+      if (!isAdmin) {
+        showNotification('فقط الأدمن يمكنه التحكم في الفيديو');
+        return;
+      }
+
+      const seekTime = (progress.value / 100) * video.duration;
+      socket.emit('seek', seekTime);
+      video.currentTime = seekTime;
+    });
+
+    function formatTime(t) {
+      const m = Math.floor(t / 60).toString().padStart(2, '0');
+      const s = Math.floor(t % 60).toString().padStart(2, '0');
+      return `${m}:${s}`;
+    }
+
+    // Socket Event Listeners
+    socket.on('init-video', ({ videoUrl, currentTime, isPlaying, isAdmin: adminStatus, userCount, roomName, users }) => {
+      isAdmin = adminStatus;
+      video.src = videoUrl;
+      video.currentTime = currentTime || 0;
+
+      if (isPlaying) video.play();
+      else video.pause();
+
+      document.getElementById('room-name').textContent = `${roomName} ${isAdmin ? '(أدمن)' : ''}`;
+      document.getElementById('user-count').textContent = userCount;
+
+      if (users) updateUsersList(users);
+
+      if (isAdmin) {
+        showNotification('أنت أدمن هذه الغرفة');
+      }
+    });
+
+    socket.on('room-info-update', ({ roomName, userCount, users }) => {
+      document.getElementById('user-count').textContent = userCount;
+      updateUsersList(users);
+    });
+
+    socket.on('play', (time) => {
+      preventEmit = true;
+      video.currentTime = time + 0.1;
+      video.play();
+      playBtn.textContent = '⏸️';
+      setTimeout(() => preventEmit = false, 300);
+    });
+
+    socket.on('pause', (time) => {
+      preventEmit = true;
+      video.currentTime = time;
+      video.pause();
+      playBtn.textContent = '▶️';
+      setTimeout(() => preventEmit = false, 300);
+    });
+
+    socket.on('seek', (time) => {
+      video.currentTime = time;
+    });
+
+    socket.on('user-joined', ({ userId, username: newUsername }) => {
+      showNotification(`${newUsername} انضم للغرفة`);
+    });
+
+    socket.on('user-left', ({ userId, username: leftUsername }) => {
+      showNotification(`${leftUsername} غادر الغرفة`);
+      // Remove voice connection if exists
+      if (peerConnections[userId]) {
+        peerConnections[userId].close();
+        delete peerConnections[userId];
+      }
+      const audioElement = document.getElementById(`audio-${userId}`);
+      if (audioElement) audioElement.remove();
+    });
+
+    socket.on('you-are-now-admin', () => {
+      isAdmin = true;
+      showNotification('أصبحت أدمن الغرفة');
+      document.getElementById('room-name').textContent = `${room} (أدمن)`;
+    });
+
+    socket.on('admin-changed', ({ oldAdmin, newAdmin }) => {
+      showNotification('تم تغيير أدمن الغرفة');
+    });
+
+    // Voice Chat Functions
+    async function toggleVoiceChat() {
+      if (!isVoiceChatActive) {
+        try {
+          localStream = await navigator.mediaDevices.getUserMedia({ 
+            audio: {
+              echoCancellation: true,
+              noiseSuppression: true,
+              autoGainControl: true
+            }
+          });
+
+          isVoiceChatActive = true;
+          voiceBtn.textContent = '🔈 إيقاف المايك';
+          voiceBtn.classList.add('active');
+          voiceStatus.textContent = 'المايك مُفعل';
+
+          socket.emit('voice-status', { room, isActive: true });
+          socket.emit('start-voice', room);
+
+          // Add tracks to existing connections
+          for (let id in peerConnections) {
+            const pc = peerConnections[id];
+            localStream.getTracks().forEach(track => {
+              pc.addTrack(track, localStream);
+            });
+          }
+
+          showNotification('تم تشغيل المايك');
+
+        } catch (err) {
+          console.error('Microphone error:', err);
+          alert('فشل في الوصول للمايكروفون: ' + err.message);
+        }
+      } else {
+        // Stop voice chat
+        if (localStream) {
+          localStream.getTracks().forEach(track => track.stop());
+          localStream = null;
+        }
+
+        isVoiceChatActive = false;
+        voiceBtn.textContent = '🔇 تشغيل المايك';
+        voiceBtn.classList.remove('active');
+        voiceStatus.textContent = 'المايك متوقف';
+
+        socket.emit('voice-status', { room, isActive: false });
+
+        // Close all peer connections
+        for (let id in peerConnections) {
+          peerConnections[id].close();
+          delete peerConnections[id];
+        }
+
+        // Remove all audio elements
+        document.querySelectorAll('audio[id^="audio-"]').forEach(audio => audio.remove());
+
+        showNotification('تم إيقاف المايك');
+      }
+    }
+
+    // Voice Chat Socket Events
+    socket.on('user-wants-voice', async (userId) => {
+      if (!localStream) return;
+
+      try {
+        const pc = createPeerConnection(userId);
+        peerConnections[userId] = pc;
+
+        localStream.getTracks().forEach(track => {
+          pc.addTrack(track, localStream);
+        });
+
+        const offer = await pc.createOffer();
+        await pc.setLocalDescription(offer);
+
+        socket.emit('offer', { to: userId, offer });
+      } catch (err) {
+        console.error('Error creating offer:', err);
+      }
+    });
+
+    socket.on('offer', async ({ from, offer }) => {
+      try {
+        const pc = createPeerConnection(from);
+        peerConnections[from] = pc;
+
+        await pc.setRemoteDescription(new RTCSessionDescription(offer));
+
+        if (localStream) {
+          localStream.getTracks().forEach(track => {
+            pc.addTrack(track, localStream);
+          });
+        }
+
+        const answer = await pc.createAnswer();
+        await pc.setLocalDescription(answer);
+
+        socket.emit('answer', { to: from, answer });
+      } catch (err) {
+        console.error('Error handling offer:', err);
+      }
+    });
+
+    socket.on('answer', async ({ from, answer }) => {
+      try {
+        const pc = peerConnections[from];
+        if (pc) {
+          await pc.setRemoteDescription(new RTCSessionDescription(answer));
+        }
+      } catch (err) {
+        console.error('Error handling answer:', err);
+      }
+    });
+
+    socket.on('ice-candidate', ({ from, candidate }) => {
+      try {
+        const pc = peerConnections[from];
+        if (pc && candidate) {
+          pc.addIceCandidate(new RTCIceCandidate(candidate));
+        }
+      } catch (err) {
+        console.error('Error adding ICE candidate:', err);
+      }
+    });
+
+    socket.on('user-voice-status', ({ userId, username: voiceUsername, isActive }) => {
+      const indicator = document.getElementById(`voice-${userId}`);
+      if (indicator) {
+        if (isActive) {
+          indicator.classList.add('active');
+        } else {
+          indicator.classList.remove('active');
+        }
+      }
+    });
+
+    function createPeerConnection(userId) {
+      const pc = new RTCPeerConnection({
+        iceServers: [
+          { urls: 'stun:stun.l.google.com:19302' },
+          { urls: 'stun:stun1.l.google.com:19302' },
+          { urls: 'stun:stun2.l.google.com:19302' }
+        ]
+      });
+
+      pc.onicecandidate = event => {
+        if (event.candidate) {
+          socket.emit('ice-candidate', { to: userId, candidate: event.candidate });
+        }
+      };
+
+      pc.ontrack = event => {
+        try {
+          const audio = document.getElementById(`audio-${userId}`) || document.createElement('audio');
+          audio.id = `audio-${userId}`;
+          audio.autoplay = true;
+          audio.volume = 1.0;
+          audio.srcObject = event.streams[0];
+
+          if (!document.body.contains(audio)) {
+            document.body.appendChild(audio);
+          }
+
+          // Update voice indicator
+          const indicator = document.getElementById(`voice-${userId}`);
+          if (indicator) {
+            indicator.classList.add('active');
+          }
+
+        } catch (err) {
+          console.error('Error handling remote stream:', err);
+        }
+      };
+
+      pc.onconnectionstatechange = () => {
+        console.log(`Connection state with ${userId}:`, pc.connectionState);
+
+        if (pc.connectionState === 'disconnected' || 
+            pc.connectionState === 'failed' || 
+            pc.connectionState === 'closed') {
+
+          const audio = document.getElementById(`audio-${userId}`);
+          if (audio) {
+            audio.srcObject = null;
+            audio.remove();
+          }
+
+          const indicator = document.getElementById(`voice-${userId}`);
+          if (indicator) {
+            indicator.classList.remove('active');
+          }
+
+          delete peerConnections[userId];
+        }
+      };
+
+      pc.onicegatheringstatechange = () => {
+        console.log(`ICE gathering state with ${userId}:`, pc.iceGatheringState);
+      };
+
+      return pc;
+    }
+  </script>
+</body>
+</html>
